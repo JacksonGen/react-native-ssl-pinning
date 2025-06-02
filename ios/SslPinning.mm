@@ -1,18 +1,34 @@
-#import "SslPinning.h"
+//
+//  SslPinning.mm
+//  jetstream
+//
+//  Created by satish-kanzariya-us on 28/05/25.
+//
 
-@implementation SslPinning
-RCT_EXPORT_MODULE()
+#import <React/RCTBridgeModule.h>
 
-- (NSNumber *)multiply:(double)a b:(double)b {
-    NSNumber *result = @(a * b);
+@interface RCT_EXTERN_MODULE(SSLPinning, NSObject)
 
-    return result;
-}
+// Main method for making network requests with SSL pinning
+RCT_EXTERN_METHOD(fetchDataWithPinning:(NSString *)url
+                  options:(NSDictionary *)options
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 
-- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
-    (const facebook::react::ObjCTurboModule::InitParams &)params
+// Method to extract certificate fingerprint from a hostname
+RCT_EXTERN_METHOD(getCertificateFingerprint:(NSString *)hostname
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+
+// Method to validate certificate against expected fingerprint
+RCT_EXTERN_METHOD(validateCertificate:(NSString *)hostname
+                  expectedCert:(NSString *)expectedCert
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+
++ (BOOL)requiresMainQueueSetup
 {
-    return std::make_shared<facebook::react::NativeSslPinningSpecJSI>(params);
+  return NO;
 }
 
 @end
