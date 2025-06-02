@@ -7,7 +7,7 @@
 
 #import <React/RCTBridgeModule.h>
 
-@interface RCT_EXTERN_MODULE(SSLPinning, NSObject)
+@interface RCT_EXTERN_MODULE(SslPinning, NSObject)
 
 // Main method for making network requests with SSL pinning
 RCT_EXTERN_METHOD(fetchDataWithPinning:(NSString *)url
